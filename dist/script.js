@@ -284,7 +284,7 @@ function draw(e) {
   // reduce alpha value
   ctx.globalAlpha = (cosine(time) + 1) * 0.1 + 0.15;
   ctx.save();
-  typeof gradient !== `number` && fillStyle(gradient);
+  (typeof gradient !== `number`) && fillStyle(gradient);
 
   // fill with rect
   canvasOptions.centered && canvasCurrentlyCentered
@@ -314,8 +314,8 @@ function draw(e) {
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.lighter;
-  ctx.filter = `blur(1px)`;
-  stroke(gradient, 0.5);
-  ctx.filter = `blur(1px)`;
-  stroke(hsl(0, 0, 50, 1), 1);
+  ctx.filter = `blur(0px)`;
+  stroke(gradient, 1);
+  ctx.filter = `blur(0px)`;
+  stroke(hsl(0, 0, 100, .0), 0);
 }
