@@ -1,4 +1,3 @@
-
 "use strict";
 /*
  * A fast javascript implementation of simplex noise by Jonas Wagner
