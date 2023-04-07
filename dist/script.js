@@ -299,6 +299,15 @@ function draw(e) {
   for (let rowIndex = 0; rowIndex < gridHeight; rowIndex++) {
     const tj = rowIndex * incrementY;
     const c = cosine(PI * 2) * 0.1;
+    Array(gridWidth).forEach((_, colIndex) => {
+       const t = colIndex * incrementX;
+      // generate noise using 3d noise
+      const n = noise.noise3D(t, time, c);
+      // scale the noise
+      const y = n * (height / 2);
+      const x = t * (width + 20) - width / 2 - 10;
+      // either moveTo or lineTo to draw the shape
+      ((colIndex) ? lineTo : moveTo)(x, y);)
     for (let colIndex = 0; colIndex < gridWidth; colIndex++) {
       const t = colIndex * incrementX;
       // generate noise using 3d noise
@@ -307,7 +316,7 @@ function draw(e) {
       const y = n * (height / 2);
       const x = t * (width + 20) - width / 2 - 10;
       // either moveTo or lineTo to draw the shape
-      (colIndex ? lineTo : moveTo)(x, y);
+      ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
     time += timeStep;
