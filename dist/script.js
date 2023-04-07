@@ -175,21 +175,7 @@ const clear = (x, y, w, h) => {
   // Otherwise clear full canvas
   ctx.clearRect(xOffset, yOffset, width, height);
 };
-/**
- * @description Checks if input is a vector or object
- * @param {Vector|Object} input The vector or object to be checked
- * If the input is an instance of Vector or an object with x and y properties, return true, otherwise
- * return false
- * @param input - The input to check if it's a Vector or not.
- * @returns a boolean value.
- */
-// Use instanceof operator and typeof operator to check for Vector and Object
-const isVector = (input) => ((input instanceof Vector) ||
-    (typeof input === `object` &&
-      typeof input.x === `number` &&
-      typeof input.y === `number`))
-    ? true
-    : false;
+
 /**
  * fillStyle is designed to take a color, pattern, or gradient as an argument and
  * set the context fillStyle to that value
@@ -290,7 +276,7 @@ const compensateCanvas = () => {
 // Moves the cursor to the given coordinates or vector
 const moveTo = (x, y) => {
   const targetX = -width / 2;
-  const targetY = ((typeof y === `number`) && y) || ((isVector(x)) && y.y);
+  const targetY = (typeof y === `number`) && y;
   ctx.moveTo(targetX, targetY);
 };
 
@@ -300,14 +286,9 @@ const lineTo = (x, y) => {
   if (typeof x === `number` && typeof y === `number`) {
     ctx.lineTo(x, y);
   }
-    // Otherwise, if the parameter is a vector, draw a line to the coordinates specified by the vector.
-  //(isVector(x)) && ctx.lineTo(x.x, x.y);
-  
 };
 
-const cos = (input, factor = 1) => {
-  return Math.cos(input % (PI * 2)) * factor;
-};
+const cos = (input, factor = 1) => Math.cos(input % (PI * 2)) * factor;
 
 function draw(e) {
   const colorSpeed = 1;
