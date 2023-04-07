@@ -1,5 +1,4 @@
 const { log } = console;
-
 /**
  * Draws a given number of lines on the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -33,24 +32,8 @@ const compositeOptions = {
   saturation: `saturation`,
   color: `color`,
   luminosity: `luminosity`,
-  source: {
-    over: `source-over`,
-    in: `source-in`,
-    out: `source-out`,
-    atop: `source-atop`,
-  },
-  destination: {
-    over: `destination-over`,
-    in: `destination-in`,
-    out: `destination-out`,
-    atop: `destination-atop`,
-  },
-  light: {
-    hard: `hard-light`,
-    soft: `soft-light`,
-  },
 };
-const { PI, floor } = Math;
+const { PI, floor, cos } = Math;
 const noise = new SimplexNoise();
 const defaultCanvasOptions = {
   autoClear: false,
@@ -200,6 +183,7 @@ const fillStyle = (...args) => {
       style = args[0];
     }
   }
+
   return (ctx.fillStyle = style);
 };
 /**
@@ -216,8 +200,7 @@ const lineWidth = (widthValue) => {
   // Return the currently set line width
   return ctx.lineWidth;
 };
-
-/*
+/**
  * Function to set the stroke style
  */
 const strokeStyle = (...args) => {
@@ -279,7 +262,6 @@ const moveTo = (x, y) => {
   const targetY = (typeof y === `number`) && y;
   ctx.moveTo(targetX, targetY);
 };
-
 // Draw a line from the current point of the canvas to the specified coordinates (x, y) or a vector.
 const lineTo = (x, y) => {
   // If the parameter is a number, draw a line to the specified x and y coordinates.
@@ -287,8 +269,7 @@ const lineTo = (x, y) => {
     ctx.lineTo(x, y);
   }
 };
-
-const cos = (input, factor = 1) => Math.cos(input % (PI * 2)) * factor;
+const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 function draw(e) {
   const colorSpeed = 1;
@@ -314,7 +295,7 @@ function draw(e) {
   gradient.addColorStop(-(t / 3) + 2 / 3, colorA);
   gradient.addColorStop(-(t / 3) + 1 / 3, colorB);
   // reduce alpha value
-  ctx.globalAlpha = (cos(time) + 1) * 0.1 + 0.15;
+  ctx.globalAlpha = (cosine(time) + 1) * 0.1 + 0.15;
   ctx.save();
   typeof gradient !== `number` && fillStyle(gradient);
 
@@ -330,7 +311,7 @@ function draw(e) {
   ctx.beginPath();
   for (let rowIndex = 0; rowIndex < gridHeight; rowIndex++) {
     const tj = rowIndex * incrementY;
-    const c = cos(PI * 2) * 0.1;
+    const c = cosine(PI * 2) * 0.1;
     for (let colIndex = 0; colIndex < gridWidth; colIndex++) {
       const t = colIndex * incrementX;
       // generate noise using 3d noise
