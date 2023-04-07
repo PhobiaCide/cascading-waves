@@ -47,13 +47,8 @@ const defaultCanvasOptions = {
   height: null,
 };
 const canvasOptions = {};
-let canvas = document.getElementById(`canvas`);
-if (canvas === null) {
-  canvas = document.createElement(`canvas`);
-  canvas.id = `canvas`;
-  document.body.appendChild(canvas);
-}
-let ctx = canvas.getContext(`2d`, {
+const canvas = document.getElementById(`canvas`);
+const ctx = canvas.getContext(`2d`, {
   desynchronized:
     window.canvasOptions && window.canvasOptions.desynchronized !== undefined
       ? window.canvasOptions.desynchronized
@@ -69,7 +64,7 @@ window.addEventListener(`load`, () => {
   Object.assign(
     canvasOptions,
     defaultCanvasOptions,
-    `canvasOptions` in window ? window.canvasOptions : {}
+    (`canvasOptions` in window) ? window.canvasOptions : {}
   );
   canvasOptions.canvas === false && document.body.removeChild(canvas);
   resizeCanvas();
