@@ -105,7 +105,7 @@ const render = (timestamp) => {
     // Check if canvas should be compensated.
     canvasOptions.autoCompensate && compensateCanvas();
     // Trigger window draw() function.
-    `draw` in window && window.draw(timestamp);
+    (`draw` in window) && window.draw(timestamp);
   }
   // Pop canvas context.
   canvasOptions.autoPushPop && ctx.restore();
@@ -114,9 +114,7 @@ const render = (timestamp) => {
   // Set previousTimestamp to timestamp.
   previousTimestamp = timestamp;
   // If drawAndStop is enabled, do not start animation.
-  if (canvasOptions.drawAndStop) {
-    return;
-  }
+  if (canvasOptions.drawAndStop) return;
   // Otherwise, start animation with requestAnimationFrame
   animation = requestAnimationFrame(render);
 };
