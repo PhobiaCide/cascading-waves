@@ -185,6 +185,7 @@ const fillStyle = (...args) => {
 const lineWidth = widthValue => {
   // Check if passed in value is a number set the line width to the passed in value
   if (typeof widthValue === `number`) ctx.lineWidth = widthValue;
+
   // Return the currently set line width
   return ctx.lineWidth;
 };
@@ -253,9 +254,7 @@ const moveTo = (x, y) => {
 // Draw a line from the current point of the canvas to the specified coordinates (x, y) or a vector.
 const lineTo = (x, y) => {
   // If the parameter is a number, draw a line to the specified x and y coordinates.
-  if (typeof x === `number` && typeof y === `number`) {
-    ctx.lineTo(x, y);
-  }
+  (typeof x === `number` && typeof y === `number`) && ctx.lineTo(x, y);
 };
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
@@ -315,8 +314,8 @@ function draw(e) {
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.lighter;
-  ctx.filter = `blur(5px)`;
-  stroke(gradient, 1);
-  ctx.filter = `blur(5px)`;
-  stroke(hsl(0, 0, 100, 0.8), 3);
+  ctx.filter = `blur(0px)`;
+  stroke(gradient, 0.5);
+  ctx.filter = `blur(0px)`;
+  stroke(hsl(0, 0, 50, 1), 1);
 }
