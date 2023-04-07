@@ -1,4 +1,5 @@
 {
   "docwriter.progress.trackMethods": false,
-  "docwriter.progress.trackFunctions": false
+  "docwriter.progress.trackFunctions": false,
+  "gitdoc.enabled": true
 }
