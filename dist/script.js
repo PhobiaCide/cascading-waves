@@ -70,11 +70,11 @@ window.addEventListener(`load`, () => {
   Object.assign(
     canvasOptions,
     defaultCanvasOptions,
-    `canvasOptions` in window ? window.canvasOptions : {}
+    (`canvasOptions` in window) ? window.canvasOptions : {}
   );
-  canvasOptions.canvas === false && document.body.removeChild(canvas);
+  (canvasOptions.canvas === false) && document.body.removeChild(canvas);
   resizeCanvas();
-  `setup` in window && window.setup();
+  (`setup` in window) && window.setup();
   frameCount = 0;
   animation = requestAnimationFrame(render);
 });
@@ -259,14 +259,14 @@ const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 function draw(e) {
   const colorSpeed = .01;
   // count of cells in x/y direction
-  const resolution = 64;
-  const strokeCount = 16;
+  const resolution = 32;
+  const strokeCount = 32;
   // incremental amount for cell coordinates
-  const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
-  const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
+  const incrementX = (resolution == 1) ? 1 : 1 / (resolution - 1);
+  const incrementY = (strokeCount == 1) ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
   let time = e * 0.001;
-  const timeStep = 0.001;
+  const timeStep = 0.01;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
   // set left and right colors from hsl
@@ -304,12 +304,12 @@ function draw(e) {
       ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep + .05;
+    time += timeStep + .01; 
   }
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.multiply;
-  ctx.filter = `blur(2px)`;
-  stroke(gradient, 3);
-  ctx.filter = `blur(4px)`;
-  stroke(hsl(0, 0, 100, .0), 1);
+  ctx.globalCompositeOperation = compositeOptions.softLight;
+  ctx.filter = `blur(8px)`;
+  stroke(gradient, 32);
+  ctx.filter = `blur(8px)`;
+  stroke(hsl(0, 0, 100, .8), 24);
 }
