@@ -257,7 +257,7 @@ const lineTo = (x, y) => {
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 function draw(e) {
-  const colorSpeed = .1;
+  const colorSpeed = .01;
   // count of cells in x/y direction
   const resolution = 64;
   const strokeCount = 20;
@@ -269,10 +269,9 @@ function draw(e) {
   const timeStep = 0.01;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
-  const tSide = floor((time * colorSpeed) % 1) === 0;
   // set left and right colors from hsl
-  const colorA = hsl(45, 100, 50);
-  const colorB = hsl(330, 100, 50);
+  const colorA = hsl(40, 100, 40);
+  const colorB = hsl(330, 100, 40);
   // take the modulo 1 of the time and treated as a boolean
   const t = time % 1;
   // assign colors to the gradient using t
@@ -305,12 +304,12 @@ function draw(e) {
       ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep + .01;
+    time += timeStep + .05;
   }
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.lighter;
-  ctx.filter = `blur(0px)`;
-  stroke(gradient, 1);
-  ctx.filter = `blur(0px)`;
-  stroke(hsl(0, 0, 100, .0), 0);
+  ctx.globalCompositeOperation = compositeOptions.multiply;
+  ctx.filter = `blur(2px)`;
+  stroke(gradient, 3);
+  ctx.filter = `blur(4px)`;
+  stroke(hsl(0, 0, 100, .0), 1);
 }
