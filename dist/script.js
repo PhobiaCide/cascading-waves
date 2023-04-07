@@ -168,19 +168,11 @@ const fillStyle = (...args) => {
   // if only one argument is passed, check if it is a string, Gradient, or Pattern
   if (args.length === 1) {
     const arg = args[0];
-    if (
-      typeof arg === `string` ||
-      arg instanceof CanvasGradient ||
-      arg instanceof CanvasPattern
-    ) {
-      style = arg;
-    }
+    if (typeof arg === `string` || arg instanceof CanvasGradient || arg instanceof CanvasPattern) style = arg;    
     // if two Strings, two gradients/patterns, and a number are passed
   } else if (args.length === 4 && typeof args[3] === `number`) {
     // parse the arguments into a gradient or pattern
-    if (args[0] instanceof CanvasGradient || args[0] instanceof CanvasPattern) {
-      style = args[0];
-    }
+    if (args[0] instanceof CanvasGradient || args[0] instanceof CanvasPattern) style = args[0];
   }
 
   return (ctx.fillStyle = style);
@@ -190,12 +182,9 @@ const fillStyle = (...args) => {
  * @param {number} width - The new line width
  * @returns {number} The currently set line width
  */
-const lineWidth = (widthValue) => {
-  // Check if passed in value is a number
-  if (typeof widthValue === `number`) {
-    // Set the line width to the passed in value
-    ctx.lineWidth = widthValue;
-  }
+const lineWidth = widthValue => {
+  // Check if passed in value is a number set the line width to the passed in value
+  if (typeof widthValue === `number`) ctx.lineWidth = widthValue;
   // Return the currently set line width
   return ctx.lineWidth;
 };
