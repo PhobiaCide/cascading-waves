@@ -1,3 +1,5 @@
+const { log } = console;
+
 /**
  * Draws a given number of lines on the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -74,6 +76,7 @@ let ctx = canvas.getContext(`2d`, {
       ? window.canvasOptions.desynchronized
       : defaultCanvasOptions.desynchronized
 });
+log(ctx);
 const initialCtx = ctx;
 let animation, previousTimestamp, frameRate, frameCount, width, height;
 let canvasCurrentlyCentered = false;
