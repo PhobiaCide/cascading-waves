@@ -260,13 +260,13 @@ function draw(e) {
   const colorSpeed = .01;
   // count of cells in x/y direction
   const resolution = 64;
-  const strokeCount = 20;
+  const strokeCount = 16;
   // incremental amount for cell coordinates
   const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
   const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
   let time = e * 0.001;
-  const timeStep = 0.01;
+  const timeStep = 0.001;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
   // set left and right colors from hsl
@@ -283,7 +283,7 @@ function draw(e) {
   ctx.save();
   (typeof gradient !== `number`) && fillStyle(gradient);
   // fill with rect
-  canvasOptions.centered && canvasCurrentlyCentered
+  (canvasOptions.centered && canvasCurrentlyCentered)
     ? ctx.fillRect(-(width / 2), -(height / 2), width, height)
     : ctx.fillRect(0, 0, width, height);
   ctx.restore();
