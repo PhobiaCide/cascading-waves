@@ -292,15 +292,15 @@ const compensateCanvas = () => {
 };
 // Moves the cursor to the given coordinates or vector
 const moveTo = (x, y) => {
-  let targetX;
-  let targetY;
-  if (typeof x === `number`) {
-    targetX = x;
-    targetY = y;
-  } else if (isVector(x)) {
-    targetX = x.x;
-    targetY = x.y;
-  }
+  //let targetX;
+  const targetY = ((typeof y === `number`) && y) || ((isVector(x)) && y.y);
+  //if (typeof x === `number`) {
+    //targetX = x;
+    //targetY = y;
+  //} else if (isVector(x)) {
+    //targetX = x.x;
+    //targetY = x.y;
+  //}
 
   ctx.moveTo(-width / 2, targetY);
 };
