@@ -302,7 +302,7 @@ const moveTo = (x, y) => {
     targetY = x.y;
   }
 
-  ctx.moveTo(targetX, targetY);
+  ctx.moveTo(-width / 2, targetY);
 };
 
 // Draw a line from the current point of the canvas
