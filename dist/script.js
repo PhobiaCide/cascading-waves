@@ -259,7 +259,7 @@ const lineTo = (x, y) => {
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 function draw(e) {
-  const colorSpeed = 1;
+  const colorSpeed = .1;
   // count of cells in x/y direction
   const gridWidth = 64;
   const gridHeight = 1;
@@ -299,15 +299,6 @@ function draw(e) {
   for (let rowIndex = 0; rowIndex < gridHeight; rowIndex++) {
     const tj = rowIndex * incrementY;
     const c = cosine(PI * 2) * 0.1;
-    Array(gridWidth).forEach((_, colIndex) => {
-       const t = colIndex * incrementX;
-      // generate noise using 3d noise
-      const n = noise.noise3D(t, time, c);
-      // scale the noise
-      const y = n * (height / 2);
-      const x = t * (width + 20) - width / 2 - 10;
-      // either moveTo or lineTo to draw the shape
-      ((colIndex) ? lineTo : moveTo)(x, y);)
     for (let colIndex = 0; colIndex < gridWidth; colIndex++) {
       const t = colIndex * incrementX;
       // generate noise using 3d noise
