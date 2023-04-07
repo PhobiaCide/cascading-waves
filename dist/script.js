@@ -292,7 +292,7 @@ const compensateCanvas = () => {
 };
 // Moves the cursor to the given coordinates or vector
 const moveTo = (x, y) => {
-  //let targetX;
+  const targetX = -width / 2;
   const targetY = ((typeof y === `number`) && y) || ((isVector(x)) && y.y);
   //if (typeof x === `number`) {
     //targetX = x;
@@ -302,7 +302,7 @@ const moveTo = (x, y) => {
     //targetY = x.y;
   //}
 
-  ctx.moveTo(-width / 2, targetY);
+  ctx.moveTo(targetX, targetY);
 };
 
 // Draw a line from the current point of the canvas
