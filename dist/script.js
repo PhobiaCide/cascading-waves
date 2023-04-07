@@ -51,7 +51,7 @@ const compositeOptions = {
   }
 };
 const { PI, floor } = Math;
-const noise = require(`simplex-noise`);//new SimplexNoise();
+const noise = new SimplexNoise();
 const defaultCanvasOptions = {
   autoClear: false,
   autoCompensate: true,
