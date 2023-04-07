@@ -1,5 +1,4 @@
 const { log } = console;
-
 /**
  * Draws a given number of lines on the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -49,11 +48,11 @@ const defaultCanvasOptions = {
 };
 const canvasOptions = {};
 let canvas = document.getElementById(`canvas`);
-if (canvas === null) {
-  canvas = document.createElement(`canvas`);
-  canvas.id = `canvas`;
-  document.body.appendChild(canvas);
-}
+//if (canvas === null) {
+//  canvas = document.createElement(`canvas`);
+//  canvas.id = `canvas`;
+//  document.body.appendChild(canvas);
+//}
 let ctx = canvas.getContext(`2d`, {
   desynchronized:
     window.canvasOptions && window.canvasOptions.desynchronized !== undefined
