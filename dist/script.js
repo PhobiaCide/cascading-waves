@@ -76,6 +76,7 @@ let ctx = canvas.getContext(`2d`, {
       ? window.canvasOptions.desynchronized
       : defaultCanvasOptions.desynchronized
 });
+log(canvas);
 log(ctx);
 const initialCtx = ctx;
 let animation, previousTimestamp, frameRate, frameCount, width, height;
