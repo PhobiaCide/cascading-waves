@@ -263,7 +263,7 @@ function draw(e) {
   const incrementY = (strokeCount == 1) ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
   let time = e * 0.0005;
-  const timeStep = 0.1;
+  const timeStep = 0.05;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
   // set left and right colors from hsl
@@ -301,12 +301,12 @@ function draw(e) {
       ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep - .01; 
+    time += timeStep; 
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.softLight;
-  ctx.filter = `blur(8px)`;
-  stroke(gradient, 32);
-  ctx.filter = `blur(8px)`;
-  stroke(hsl(0, 0, 100, .8), 24);
+  ctx.filter = `blur(2px)`;
+  stroke(gradient, 8);
+  ctx.filter = `blur(   4px)`;
+  stroke(hsl(0, 0, 100, .8), 4);
 }
