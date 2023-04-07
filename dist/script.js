@@ -281,8 +281,6 @@ const stroke = (...args) => {
 };
 // This function compensates the odd-numbered width and height of a canvas
 const compensateCanvas = () => {
-  //let offX = 0; // offset x value
-  //let offY = 0; // offset y value
   // If the width is odd, add 0.5 to the x offset
   const offX = width % 2 ? 0.5 : 0;
   // If the height is odd, add 0.5 to the y offset
@@ -294,26 +292,15 @@ const compensateCanvas = () => {
 const moveTo = (x, y) => {
   const targetX = -width / 2;
   const targetY = ((typeof y === `number`) && y) || ((isVector(x)) && y.y);
-  //if (typeof x === `number`) {
-    //targetX = x;
-    //targetY = y;
-  //} else if (isVector(x)) {
-    //targetX = x.x;
-    //targetY = x.y;
-  //}
-
   ctx.moveTo(targetX, targetY);
 };
 
-// Draw a line from the current point of the canvas
-// to the specified coordinates (x, y) or a vector.
+// Draw a line from the current point of the canvas to the specified coordinates (x, y) or a vector.
 const lineTo = (x, y) => {
-  // If the parameter is a number, draw a line to
-  // the specified x and y coordinates.
+  // If the parameter is a number, draw a line to the specified x and y coordinates.
   if (typeof x === `number` && typeof y === `number`) {
     ctx.lineTo(x, y);
-    // Otherwise, if the parameter is a vector, draw a line
-    // to the coordinates specified by the vector.
+    // Otherwise, if the parameter is a vector, draw a line to the coordinates specified by the vector.
   } else if (isVector(x)) {
     ctx.lineTo(x.x, x.y);
   }
