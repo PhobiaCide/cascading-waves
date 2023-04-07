@@ -1,4 +1,5 @@
 const { log } = console;
+
 /**
  * Draws a given number of lines on the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -32,6 +33,7 @@ const compositeOptions = {
   saturation: `saturation`,
   color: `color`,
   luminosity: `luminosity`,
+
 };
 const { PI, floor, cos } = Math;
 const noise = new SimplexNoise();
@@ -47,8 +49,13 @@ const defaultCanvasOptions = {
   height: null,
 };
 const canvasOptions = {};
-const canvas = document.getElementById(`canvas`);
-const ctx = canvas.getContext(`2d`, {
+let canvas = document.getElementById(`canvas`);
+if (canvas === null) {
+  canvas = document.createElement(`canvas`);
+  canvas.id = `canvas`;
+  document.body.appendChild(canvas);
+}
+let ctx = canvas.getContext(`2d`, {
   desynchronized:
     window.canvasOptions && window.canvasOptions.desynchronized !== undefined
       ? window.canvasOptions.desynchronized
@@ -64,7 +71,7 @@ window.addEventListener(`load`, () => {
   Object.assign(
     canvasOptions,
     defaultCanvasOptions,
-    (`canvasOptions` in window) ? window.canvasOptions : {}
+    `canvasOptions` in window ? window.canvasOptions : {}
   );
   canvasOptions.canvas === false && document.body.removeChild(canvas);
   resizeCanvas();
