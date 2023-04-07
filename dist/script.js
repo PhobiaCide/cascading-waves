@@ -184,11 +184,10 @@ const clear = (x, y, w, h) => {
  * @returns a boolean value.
  */
 // Use instanceof operator and typeof operator to check for Vector and Object
-const isVector = (input) =>
-  input instanceof Vector ||
+const isVector = (input) => ((input instanceof Vector) ||
     (typeof input === `object` &&
       typeof input.x === `number` &&
-      typeof input.y === `number`)
+      typeof input.y === `number`))
     ? true
     : false;
 /**
@@ -300,10 +299,10 @@ const lineTo = (x, y) => {
   // If the parameter is a number, draw a line to the specified x and y coordinates.
   if (typeof x === `number` && typeof y === `number`) {
     ctx.lineTo(x, y);
-    // Otherwise, if the parameter is a vector, draw a line to the coordinates specified by the vector.
-  } else if (isVector(x)) {
-    ctx.lineTo(x.x, x.y);
   }
+    // Otherwise, if the parameter is a vector, draw a line to the coordinates specified by the vector.
+  //(isVector(x)) && ctx.lineTo(x.x, x.y);
+  
 };
 
 const cos = (input, factor = 1) => {
