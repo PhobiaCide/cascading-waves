@@ -153,9 +153,7 @@ let yOffset =
  */
 const clear = (x, y, w, h) => {
   // If all numbers are provided, draw at specific coordinates
-  (typeof x === `number` &&
-    !isNaN(x)) &&
-    ctx.clearRect(x + xOffset, y + yOffset, w, h);
+  (typeof x === `number` && !isNaN(x)) && ctx.clearRect(x + xOffset, y + yOffset, w, h);
   // Otherwise clear full canvas
   ctx.clearRect(xOffset, yOffset, width, height);
 };
