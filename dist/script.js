@@ -305,7 +305,7 @@ function draw(e) {
       ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep + .05;
+    time += timeStep + .01;
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.lighter;
