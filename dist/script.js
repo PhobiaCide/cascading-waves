@@ -261,11 +261,11 @@ const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 function draw(e) {
   const colorSpeed = .1;
   // count of cells in x/y direction
-  const gridWidth = 64;
-  const gridHeight = 1;
+  const resolution = 64;
+  const strokeCount = 20;
   // incremental amount for cell coordinates
-  const incrementX = gridWidth == 1 ? 1 : 1 / (gridWidth - 1);
-  const incrementY = gridHeight == 1 ? 1 : 1 / (gridHeight - 1);
+  const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
+  const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
   let time = e * 0.001;
   const timeStep = 0.01;
@@ -296,10 +296,10 @@ function draw(e) {
 
   // new path and loop through y-count and x-count
   ctx.beginPath();
-  for (let rowIndex = 0; rowIndex < gridHeight; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < strokeCount; rowIndex++) {
     const tj = rowIndex * incrementY;
     const c = cosine(PI * 2) * 0.1;
-    for (let colIndex = 0; colIndex < gridWidth; colIndex++) {
+    for (let colIndex = 0; colIndex < resolution; colIndex++) {
       const t = colIndex * incrementX;
       // generate noise using 3d noise
       const n = noise.noise3D(t, time, c);
@@ -314,8 +314,8 @@ function draw(e) {
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.lighter;
-  ctx.filter = `blur(0px)`;
+  ctx.filter = `blur(1px)`;
   stroke(gradient, 0.5);
-  ctx.filter = `blur(0px)`;
+  ctx.filter = `blur(1px)`;
   stroke(hsl(0, 0, 50, 1), 1);
 }
