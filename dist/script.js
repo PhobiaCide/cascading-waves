@@ -285,15 +285,12 @@ function draw(e) {
   ctx.globalAlpha = (cosine(time) + 1) * 0.1 + 0.15;
   ctx.save();
   (typeof gradient !== `number`) && fillStyle(gradient);
-
   // fill with rect
   canvasOptions.centered && canvasCurrentlyCentered
     ? ctx.fillRect(-(width / 2), -(height / 2), width, height)
     : ctx.fillRect(0, 0, width, height);
-
   ctx.restore();
   ctx.globalAlpha = 1;
-
   // new path and loop through y-count and x-count
   ctx.beginPath();
   for (let rowIndex = 0; rowIndex < strokeCount; rowIndex++) {
@@ -310,7 +307,7 @@ function draw(e) {
       ((colIndex) ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep;
+    time += timeStep + .05;
   }
   // drawing styles
   ctx.globalCompositeOperation = compositeOptions.lighter;
