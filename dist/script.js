@@ -62,8 +62,12 @@ const defaultCanvasOptions = {
   height: null
 };
 const canvasOptions = {};
-let canvas = document.getElementById(`canvas`) ?? document.body.appendChild(document.createElement(`canvas`);
-canvas.id = `canvas`;
+let canvas = document.getElementById(`canvas`);
+if (!canvas) {
+  document.createElement(`canvas`);
+  canvas.id = `canvas`;
+  document.body.appendChild(canvas);
+}
 
 let ctx = canvas.getContext(`2d`, {
   desynchronized:
