@@ -63,7 +63,7 @@ const defaultCanvasOptions = {
 };
 const canvasOptions = {};
 let canvas = document.getElementById(`canvas`);
-if (!canvas) {
+if (canvas === null) {
   document.createElement(`canvas`);
   canvas.id = `canvas`;
   document.body.appendChild(canvas);
