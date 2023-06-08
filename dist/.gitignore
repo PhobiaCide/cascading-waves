@@ -1,0 +1,6 @@
+*.*
+./misc/*.*
+!./*.js
+!./*.css
+!./*.html
+!./package.json
