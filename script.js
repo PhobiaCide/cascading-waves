@@ -312,9 +312,9 @@ function draw(e) {
     time += timeStep;
   }
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.softLight;
+  ctx.globalCompositeOperation = compositeOptions.multiply;
   ctx.filter = `blur(6px)`;
-  stroke(gradient, 3);
+  stroke(gradient, 1);
   ctx.filter = `blur(6px)`;
-  stroke(hsl(0, 0, 100, 0.8), 3);
+  stroke(hsl(0, 0, 100, 0.8), 1);
 }
