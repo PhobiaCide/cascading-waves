@@ -264,14 +264,14 @@ const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 function draw(e) {
   const colorSpeed = 0.01;
   // count of cells in x/y direction
-  const resolution = 32;
-  const strokeCount = 16;
+  const resolution = 64;
+  const strokeCount = 128;
   // incremental amount for cell coordinates
   const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
   const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
-  let time = e * 0.00005;
-  const timeStep = 0.05;
+  let time = e * 0.00025;
+  const timeStep = 0.002;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
   // set left and right colors from hsl
@@ -312,9 +312,9 @@ function draw(e) {
     time += timeStep;
   }
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.hardLight;
-  ctx.filter = `blur(1px)`;
-  stroke(gradient, 1);
+  ctx.globalCompositeOperation = compositeOptions.softLight;
   ctx.filter = `blur(3px)`;
+  stroke(gradient, 1);
+  ctx.filter = `blur(6px)`;
   stroke(hsl(0, 0, 100, 0.8), 3);
 }
