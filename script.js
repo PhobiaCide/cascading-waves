@@ -128,8 +128,8 @@ function resizeCanvas(specificCanvas) {
     canvasOptions.height !== null ? canvasOptions.height : window.innerHeight;
 
   // Set fill and stroke styles
-  //ctx.fillStyle = `hsl(0, 0%, 100%)`;
-  //ctx.strokeStyle = `hsl(0, 0%, 100%)`;
+  ctx.fillStyle = `hsl(0, 0%, 0%)`;
+  ctx.strokeStyle = `hsl(0, 0%, 0%)`;
 
   // If window has an onResize method, invoke it
   `onResize` in window && window.onResize();
