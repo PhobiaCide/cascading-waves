@@ -262,7 +262,7 @@ const lineTo = (x, y) => {
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 function draw(e) {
-  const colorSpeed = 0.01;
+  const colorSpeed = 0.001;
   // count of cells in x/y direction
   const resolution = 64;
   const strokeCount = 128;
@@ -315,6 +315,6 @@ function draw(e) {
   ctx.globalCompositeOperation = compositeOptions.multiply;
   ctx.filter = `blur(6px)`;
   stroke(gradient, 1);
-  ctx.filter = `blur(6px)`;
+  ctx.filter = `blur(12px)`;
   stroke(hsl(0, 0, 100, 0.8), 1);
 }
