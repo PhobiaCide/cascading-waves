@@ -5,46 +5,46 @@ const { log } = console;
  * @returns The return value is the current fillStyle value.
  */
 const compositeOptions = {
-  default: `source-over`,
-  sourceOver: `source-over`,
-  sourceIn: `source-in`,
-  sourceOut: `source-out`,
-  sourceAtop: `source-atop`,
-  destinationOver: `destination-over`,
-  destinationIn: `destination-in`,
-  destinationOut: `destination-out`,
-  destinationAtop: `destination-atop`,
-  lighter: `lighter`,
-  copy: `copy`,
   xor: `xor`,
-  multiply: `multiply`,
+  hue: `hue`,
+  copy: `copy`,
+  color: `color`,
   screen: `screen`,
-  overlay: `overlay`,
   darken: `darken`,
+  lighter: `lighter`,
+  overlay: `overlay`,
   lighten: `lighten`,
-  colorDodge: `color-dodge`,
+  multiply: `multiply`,
+  sourceIn: `source-in`,
+  default: `source-over`,
+  exclusion: `exclusion`,
+  sourceOut: `source-out`,
   colorBurn: `color-burn`,
   hardLight: `hard-light`,
   softLight: `soft-light`,
   difference: `difference`,
-  exclusion: `exclusion`,
-  hue: `hue`,
   saturation: `saturation`,
-  color: `color`,
   luminosity: `luminosity`,
+  sourceOver: `source-over`,
+  sourceAtop: `source-atop`,
+  colorDodge: `color-dodge`,
+  destinationIn: `destination-in`,
+  destinationOut: `destination-out`,
+  destinationOver: `destination-over`,
+  destinationAtop: `destination-atop`,
 };
 const { PI, floor, cos } = Math;
 const noise = new SimplexNoise();
 const defaultCanvasOptions = {
-  autoClear: false,
-  autoCompensate: true,
-  autoPushPop: false,
-  canvas: true,
-  centered: false,
-  desynchronized: false,
-  drawAndStop: false,
   width: null,
+  canvas: true,
   height: null,
+  centered: false,
+  autoClear: false,
+  autoPushPop: false,
+  drawAndStop: false,
+  autoCompensate: true,
+  desynchronized: false,
 };
 const canvasOptions = {};
 let canvas = document.getElementById(`canvas`);
@@ -67,11 +67,11 @@ window.addEventListener(`load`, () => {
   Object.assign(
     canvasOptions,
     defaultCanvasOptions,
-    (`canvasOptions` in window) ? window.canvasOptions : {}
+    `canvasOptions` in window ? window.canvasOptions : {}
   );
-  (canvasOptions.canvas === false) && document.body.removeChild(canvas);
+  canvasOptions.canvas === false && document.body.removeChild(canvas);
   resizeCanvas();
-  (`setup` in window) && window.setup();
+  `setup` in window && window.setup();
   frameCount = 0;
   animation = requestAnimationFrame(render);
 });
@@ -102,7 +102,7 @@ const render = (timestamp) => {
     // Check if canvas should be compensated.
     canvasOptions.autoCompensate && compensateCanvas();
     // Trigger window draw() function.
-    (`draw` in window) && window.draw(timestamp);
+    `draw` in window && window.draw(timestamp);
   }
   // Pop canvas context.
   canvasOptions.autoPushPop && ctx.restore();
@@ -148,7 +148,9 @@ let yOffset =
  */
 const clear = (x, y, w, h) => {
   // If all numbers are provided, draw at specific coordinates
-  (typeof x === `number` && !isNaN(x)) && ctx.clearRect(x + xOffset, y + yOffset, w, h);
+  typeof x === `number` &&
+    !isNaN(x) &&
+    ctx.clearRect(x + xOffset, y + yOffset, w, h);
   // Otherwise clear full canvas
   ctx.clearRect(xOffset, yOffset, width, height);
 };
@@ -163,11 +165,17 @@ const fillStyle = (...args) => {
   // if only one argument is passed, check if it is a string, Gradient, or Pattern
   if (args.length === 1) {
     const arg = args[0];
-    if (typeof arg === `string` || arg instanceof CanvasGradient || arg instanceof CanvasPattern) style = arg;    
+    if (
+      typeof arg === `string` ||
+      arg instanceof CanvasGradient ||
+      arg instanceof CanvasPattern
+    )
+      style = arg;
     // if two Strings, two gradients/patterns, and a number are passed
   } else if (args.length === 4 && typeof args[3] === `number`) {
     // parse the arguments into a gradient or pattern
-    if (args[0] instanceof CanvasGradient || args[0] instanceof CanvasPattern) style = args[0];
+    if (args[0] instanceof CanvasGradient || args[0] instanceof CanvasPattern)
+      style = args[0];
   }
 
   return (ctx.fillStyle = style);
@@ -177,7 +185,7 @@ const fillStyle = (...args) => {
  * @param {number} width - The new line width
  * @returns {number} The currently set line width
  */
-const lineWidth = widthValue => {
+const lineWidth = (widthValue) => {
   // Check if passed in value is a number set the line width to the passed in value
   if (typeof widthValue === `number`) ctx.lineWidth = widthValue;
 
@@ -243,26 +251,26 @@ const compensateCanvas = () => {
 // Moves the cursor to the given coordinates or vector
 const moveTo = (x, y) => {
   const targetX = -width / 2;
-  const targetY = (typeof y === `number`) && y;
+  const targetY = typeof y === `number` && y;
   ctx.moveTo(targetX, targetY);
 };
 // Draw a line from the current point of the canvas to the specified coordinates (x, y) or a vector.
 const lineTo = (x, y) => {
   // If the parameter is a number, draw a line to the specified x and y coordinates.
-  (typeof x === `number` && typeof y === `number`) && ctx.lineTo(x, y);
+  typeof x === `number` && typeof y === `number` && ctx.lineTo(x, y);
 };
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 function draw(e) {
-  const colorSpeed = .01;
+  const colorSpeed = 0.01;
   // count of cells in x/y direction
   const resolution = 32;
   const strokeCount = 16;
   // incremental amount for cell coordinates
-  const incrementX = (resolution == 1) ? 1 : 1 / (resolution - 1);
-  const incrementY = (strokeCount == 1) ? 1 : 1 / (strokeCount - 1);
+  const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
+  const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
   // time step - used as frequency multiplier for noise
-  let time = e * 0.0005;
+  let time = e * 0.00005;
   const timeStep = 0.05;
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
@@ -278,9 +286,9 @@ function draw(e) {
   // reduce alpha value
   ctx.globalAlpha = (cosine(time) + 1) * 0.1 + 0.15;
   ctx.save();
-  (typeof gradient !== `number`) && fillStyle(gradient);
+  typeof gradient !== `number` && fillStyle(gradient);
   // fill with rect
-  (canvasOptions.centered && canvasCurrentlyCentered)
+  canvasOptions.centered && canvasCurrentlyCentered
     ? ctx.fillRect(-(width / 2), -(height / 2), width, height)
     : ctx.fillRect(0, 0, width, height);
   ctx.restore();
@@ -298,15 +306,15 @@ function draw(e) {
       const y = n * (height / 2);
       const x = t * (width + 20) - width / 2 - 10;
       // either moveTo or lineTo to draw the shape
-      ((colIndex) ? lineTo : moveTo)(x, y);
+      (colIndex ? lineTo : moveTo)(x, y);
     }
     // increase time after every iteration
-    time += timeStep; 
+    time += timeStep;
   }
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.softLight;
-  ctx.filter = `blur(2px)`;
-  stroke(gradient, 8);
-  ctx.filter = `blur(   4px)`;
-  stroke(hsl(0, 0, 100, .8), 4);
+  ctx.globalCompositeOperation = compositeOptions.hardLight;
+  ctx.filter = `blur(1px)`;
+  stroke(gradient, 1);
+  ctx.filter = `blur(3px)`;
+  stroke(hsl(0, 0, 100, 0.8), 3);
 }
