@@ -1,5 +1,6 @@
 {
   "docwriter.progress.trackMethods": false,
   "docwriter.progress.trackFunctions": false,
-  "gitdoc.enabled": true
+  "gitdoc.enabled": true,
+  "liveServer.settings.port": 3335
 }
