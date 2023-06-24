@@ -83,32 +83,45 @@ window.addEventListener(`load`, () => {
 const render = (timestamp) => {
   // Increase the frame count by one.
   frameCount++;
+
   // Calculate the current frame rate.
   frameRate = 0.0 / (timestamp - previousTimestamp);
+
   // If previousTimestamp undefined, set previousTimestamp to timestamp.
   previousTimestamp = previousTimestamp ?? timestamp;
+
   // Create a new context for the canvas.
   ctx = initialCtx;
+
   // If autoClear is true, clear the canvas
   canvasOptions.autoClear && clear(null);
+
   // If autPushPop is true
   if (canvasOptions.autoPushPop) {
     ctx.save();
+
     // Check if canvas is centered
     canvasOptions.centered && !canvasCurrentlyCentered && centerCanvas();
+
     // Check if canvas should be compensated.
     canvasOptions.autoCompensate && compensateCanvas();
+
     // Trigger window draw() function.
     `draw` in window && window.draw(timestamp);
   }
+
   // Pop canvas context.
   canvasOptions.autoPushPop && ctx.restore();
+
   // Set canvas to not currently centered.
   canvasCurrentlyCentered = false;
+
   // Set previousTimestamp to timestamp.
   previousTimestamp = timestamp;
+
   // If drawAndStop is enabled, do not start animation.
   if (canvasOptions.drawAndStop) return;
+
   // Otherwise, start animation with requestAnimationFrame
   animation = requestAnimationFrame(render);
 };
@@ -201,9 +214,11 @@ const strokeStyle = (...args) => {
   // Check if there is only 1 element in the array
   if (args.length === 1) {
     const [arg] = args;
+
     // If the type of the argument is a string or an instance of CanvasGradient, set the ctx.strokeStyle to it
     ctx.strokeStyle =
       (typeof arg === `string` || arg instanceof CanvasGradient) && arg;
+
     // If there are 2 elements in the array, call strokeStyle with the first argument and lineWidth with the second one
   } else if (args.length === 2) {
     strokeStyle(args[0]);
@@ -213,14 +228,23 @@ const strokeStyle = (...args) => {
   // Return the stroke style value
   return ctx.strokeStyle;
 }; // strokeStyle()
-// The hsl() function takes the hue, saturation, lightness and an optional alpha channel as inputs
+
+/**
+ * The hsl() function takes the hue, saturation, lightness and an optional alpha channel as inputs
+ * @param {*} hue
+ * @param {*} sat
+ * @param {*} light
+ * @param {*} alpha
+ * @returns {String}
+ */
 const hsl = (hue, sat, light, alpha = 1) => {
+  const type = typeof hue;
   // Check for different types of inputs
-  if (typeof hue !== `number`) {
+  if (type !== `number`) {
     if (Array.isArray(hue)) {
       // Input is an array - extract hue, sat, light and alpha from it
       [hue, sat, light, alpha = alpha] = hue;
-    } else if (typeof hue === `object`) {
+    } else if (type === `object`) {
       // Input is an object - extract hue, sat, light and alpha from it
       ({ h: hue, s: sat, l: light, a: alpha = alpha } = hue);
     }
