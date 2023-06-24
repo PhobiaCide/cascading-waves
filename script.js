@@ -238,17 +238,19 @@ const strokeStyle = (...args) => {
  * @returns {String}
  */
 const hsl = (hue, sat, light, alpha = 1) => {
-  const type = typeof hue;
+  const hueType = typeof hue;
+
   // Check for different types of inputs
-  if (type !== `number`) {
+  if (hueType !== `number`) {
     if (Array.isArray(hue)) {
       // Input is an array - extract hue, sat, light and alpha from it
       [hue, sat, light, alpha = alpha] = hue;
-    } else if (type === `object`) {
+    } else if (hueType === `object`) {
       // Input is an object - extract hue, sat, light and alpha from it
       ({ h: hue, s: sat, l: light, a: alpha = alpha } = hue);
     }
   }
+
   // Make sure hue is within 0-360 degrees range
   hue = hue % 360;
   hue += hue < 0 ? 360 : 0;
@@ -260,26 +262,33 @@ const hsl = (hue, sat, light, alpha = 1) => {
 const stroke = (...args) => {
   // Check if a path2D object is passed as the first argument
   const path = args.length && args[0] instanceof Path2D && args.shift();
+
   // Set the current strokeStyle for drawing
   strokeStyle(...args);
+
   // If the path variable is set, use it to stroke the canvas
   path ? ctx.stroke(path) : ctx.stroke();
 };
+
 // This function compensates the odd-numbered width and height of a canvas
 const compensateCanvas = () => {
   // If the width is odd, add 0.5 to the x offset
   const offX = width % 2 ? 0.5 : 0;
+
   // If the height is odd, add 0.5 to the y offset
   const offY = height % 2 ? 0.5 : 0;
+
   // If either axes has an offset value, Translate the canvas
   (offX || offY) && translate(offX, offY);
 };
+
 // Moves the cursor to the given coordinates or vector
 const moveTo = (x, y) => {
   const targetX = -width / 2;
   const targetY = typeof y === `number` && y;
   ctx.moveTo(targetX, targetY);
 };
+
 // Draw a line from the current point of the canvas to the specified coordinates (x, y) or a vector.
 const lineTo = (x, y) => {
   // If the parameter is a number, draw a line to the specified x and y coordinates.
@@ -287,11 +296,15 @@ const lineTo = (x, y) => {
 };
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
+/**
+ *
+ * @param {*} e
+ */
 function draw(e) {
   const colorSpeed = 0.001;
   // count of cells in x/y direction
   const resolution = 64;
-  const strokeCount = 128;
+  const strokeCount = 64;
   // incremental amount for cell coordinates
   const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
   const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
