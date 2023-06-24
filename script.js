@@ -1,11 +1,6 @@
 const { log } = console;
 const { PI, floor, cos } = Math;
 const noise = new SimplexNoise();
-/**
- * Draws a given number of lines on the canvas.
- * @param timestamp - The timestamp of the current frame.
- * @returns The return value is the current fillStyle value.
- */
 const compOpts = {
   xor: `xor`,
   hue: `hue`,
@@ -55,9 +50,9 @@ if (canvas === null) {
 }
 let ctx = canvas.getContext(`2d`, {
   desynchronized:
-    window.canvasOptions && window.canvasOptions.desynchronized !== undefined
-      ? window.canvasOptions.desynchronized
-      : defaultCanvasOptions.desynchronized,
+    window.canvasOptions &&
+    (window.canvasOptions.desynchronized ??
+      defaultCanvasOptions.desynchronized),
 });
 const initialCtx = ctx;
 let animation, previousTimestamp, frameRate, frameCount, width, height;
@@ -297,8 +292,9 @@ const lineTo = (x, y) => {
 const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
 
 /**
- *
- * @param {*} e
+ * Draws a given number of lines on the canvas.
+ * @param timestamp - The timestamp of the current frame.
+ * @returns The return value is the current fillStyle value.
  */
 function draw(e) {
   const colorSpeed = 0.001;
