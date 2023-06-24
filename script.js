@@ -302,12 +302,16 @@ const cosine = (input, factor = 1) => cos(input % (PI * 2)) * factor;
  */
 function draw(e) {
   const colorSpeed = 0.001;
+
   // count of cells in x/y direction
-  const resolution = 64;
+  const strokeSegments = 64;
   const strokeCount = 64;
+
   // incremental amount for cell coordinates
-  const incrementX = resolution == 1 ? 1 : 1 / (resolution - 1);
-  const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
+  const incrementX = strokeSegments == 1 ? 1 : 1 / (strokeSegments - 1);
+
+  const incrementY = strokeCount == 1 ? 1 : (strokeCount - 1) / 1;
+
   // time step - used as frequency multiplier for noise
   let time = e * 0.00045;
   const timeStep = 0.0045;
@@ -337,7 +341,7 @@ function draw(e) {
   for (let rowIndex = 0; rowIndex < strokeCount; rowIndex++) {
     const tj = rowIndex * incrementY;
     const c = cosine(PI * 2) * 0.1;
-    for (let colIndex = 0; colIndex < resolution; colIndex++) {
+    for (let colIndex = 0; colIndex < strokeSegments; colIndex++) {
       const t = colIndex * incrementX;
       // generate noise using 3d noise
       const n = noise.noise3D(t, time, c);
