@@ -13,7 +13,6 @@ const compOpts = {
   lighten: `lighten`,
   multiply: `multiply`,
   sourceIn: `source-in`,
-  default: `source-over`,
   exclusion: `exclusion`,
   sourceOut: `source-out`,
   colorBurn: `color-burn`,
@@ -382,9 +381,9 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.sourceOver;
-  ctx.filter = `blur(2px)`;
+  ctx.globalCompositeOperation = compOpts.destinationAtop;
+  ctx.filter = `blur(4px)`;
   stroke(-gradient, 2);
-  ctx.filter = `blur(1px)`;
-  stroke(hsl(30, 99, 90, 0.5), 1);
+  ctx.filter = `blur(2px)`;
+  stroke(hsl(30, 99, 80, 0.95), 1);
 }
