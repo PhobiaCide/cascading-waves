@@ -182,8 +182,9 @@ const clear = (x, y, w, h) => {
  * @param {String|CanvasGradient|CanvasPattern} args
  */
 const fillStyle = (...args) => {
-  let style = ``;
+  //let style = ``;
   const arg = args[0];
+  /*
   // if only one argument is passed, check if it is a string, Gradient, or Pattern
   if (args.length === 1) {
     style =
@@ -194,12 +195,14 @@ const fillStyle = (...args) => {
 
     // if two Strings, two gradients/patterns, and a number are passed
   } else if (args.length === 4 && typeof args[3] === `number`) {
+
     // parse the arguments into a gradient or pattern
     if (arg instanceof CanvasGradient || arg instanceof CanvasPattern)
       style = arg;
   }
+*/
 
-  return (ctx.fillStyle = style);
+  return (ctx.fillStyle = arg);
 };
 
 /**
@@ -383,7 +386,7 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.luminosity;
+  ctx.globalCompositeOperation = compOpts.hue;
 
   // blur the canvas
   ctx.filter = `blur(5px)`;
@@ -400,5 +403,5 @@ function draw(e) {
   // blur the canvas
   ctx.filter = `blur(2px)`;
 
-  stroke(-gradient, 15);
+  stroke(gradient, 15);
 }
