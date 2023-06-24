@@ -96,8 +96,6 @@ const render = (timestamp) => {
     ctx.save();
     // Check if canvas is centered
     if (canvasOptions.centered && !canvasCurrentlyCentered) {
-      ctx.translate(width / 2, height / 2);
-      canvasCurrentlyCentered = true;
     }
     // Check if canvas should be compensated.
     canvasOptions.autoCompensate && compensateCanvas();
@@ -115,6 +113,8 @@ const render = (timestamp) => {
   // Otherwise, start animation with requestAnimationFrame
   animation = requestAnimationFrame(render);
 };
+
+function centerCanvas() {}
 
 /**
  * Resize a specific canvas
