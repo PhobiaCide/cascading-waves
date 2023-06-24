@@ -86,7 +86,7 @@ const render = (timestamp) => {
   // Calculate the current frame rate.
   frameRate = 0.0 / (timestamp - previousTimestamp);
   // If previousTimestamp undefined, set previousTimestamp to timestamp.
-  previousTimestamp = !previousTimestamp && timestamp;
+  previousTimestamp = previousTimestamp ?? timestamp;
   // Create a new context for the canvas.
   ctx = initialCtx;
   // If autoClear is true, clear the canvas
