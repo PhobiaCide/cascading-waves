@@ -272,6 +272,7 @@ const hsl = (hue, sat, light, alpha = 1) => {
   // Return the result of the function
   return `hsl(${hue} ${sat}% ${light}% / ${alpha})`;
 };
+
 // Strokes the path with the current painting style
 const stroke = (...args) => {
   // Check if a path2D object is passed as the first argument
@@ -381,7 +382,7 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.multiply;
+  ctx.globalCompositeOperation = compOpts.xor;
   ctx.filter = `blur(6px)`;
   stroke(gradient, 1);
   ctx.filter = `blur(12px)`;
