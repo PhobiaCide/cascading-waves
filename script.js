@@ -183,22 +183,20 @@ const clear = (x, y, w, h) => {
  */
 const fillStyle = (...args) => {
   let style = ``;
-
+  const arg = args[0];
   // if only one argument is passed, check if it is a string, Gradient, or Pattern
   if (args.length === 1) {
-    const arg = args[0];
-    if (
-      typeof arg === `string` ||
-      arg instanceof CanvasGradient ||
-      arg instanceof CanvasPattern
-    )
-      style = arg;
+    style =
+      (typeof arg === `string` ||
+        arg instanceof CanvasGradient ||
+        arg instanceof CanvasPattern) &&
+      arg;
 
     // if two Strings, two gradients/patterns, and a number are passed
   } else if (args.length === 4 && typeof args[3] === `number`) {
     // parse the arguments into a gradient or pattern
-    if (args[0] instanceof CanvasGradient || args[0] instanceof CanvasPattern)
-      style = args[0];
+    if (arg instanceof CanvasGradient || arg instanceof CanvasPattern)
+      style = arg;
   }
 
   return (ctx.fillStyle = style);
