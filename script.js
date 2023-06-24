@@ -67,6 +67,7 @@ window.addEventListener(`resize`, resizeCanvas);
 
 // when the window loads...
 window.addEventListener(`load`, onLoad);
+
 /**
  * It renders the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -159,6 +160,7 @@ let xOffset =
   canvasOptions.centered && canvasCurrentlyCentered ? -(width / 2) : 0;
 let yOffset =
   canvasOptions.centered && canvasCurrentlyCentered ? -(height / 2) : 0;
+
 /**
  * Clear a canvas either with specific coordinates or clear the full canvas.
  * @param {number} x - The x-coordinate of the top left corner of the rectangle to be cleared.
@@ -171,17 +173,18 @@ const clear = (x, y, w, h) => {
   typeof x === `number` &&
     !isNaN(x) &&
     ctx.clearRect(x + xOffset, y + yOffset, w, h);
+
   // Otherwise clear full canvas
   ctx.clearRect(xOffset, yOffset, width, height);
 };
 
 /**
- * fillStyle is designed to take a color, pattern, or gradient as an argument and
- * set the context fillStyle to that value
+ * fillStyle is designed to take a color, pattern, or gradient as an argument and set the context fillStyle to that value
  * @param {String|CanvasGradient|CanvasPattern} args
  */
 const fillStyle = (...args) => {
   let style = ``;
+
   // if only one argument is passed, check if it is a string, Gradient, or Pattern
   if (args.length === 1) {
     const arg = args[0];
@@ -191,6 +194,7 @@ const fillStyle = (...args) => {
       arg instanceof CanvasPattern
     )
       style = arg;
+
     // if two Strings, two gradients/patterns, and a number are passed
   } else if (args.length === 4 && typeof args[3] === `number`) {
     // parse the arguments into a gradient or pattern
@@ -200,6 +204,7 @@ const fillStyle = (...args) => {
 
   return (ctx.fillStyle = style);
 };
+
 /**
  * Function to set and get line width
  * @param {number} width - The new line width
@@ -212,6 +217,7 @@ const lineWidth = (widthValue) => {
   // Return the currently set line width
   return ctx.lineWidth;
 };
+
 /**
  * Function to set the stroke style
  */
@@ -231,8 +237,11 @@ const strokeStyle = (...args) => {
   }
 
   // Return the stroke style value
+
   return ctx.strokeStyle;
-}; // strokeStyle()
+
+  // end of strokeStyle()
+};
 
 /**
  * The hsl() function takes the hue, saturation, lightness and an optional alpha channel as inputs
