@@ -383,7 +383,7 @@ function draw(e) {
   // drawing styles
   ctx.globalCompositeOperation = compOpts.destinationAtop;
   ctx.filter = `blur(4px)`;
-  stroke(gradient, 2);
+  stroke(gradient, 3);
   ctx.filter = `blur(2px)`;
   stroke(hsl(30, 99, 80, 0.95), 1);
 }
