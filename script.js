@@ -54,22 +54,19 @@ let ctx = canvas.getContext(`2d`, {
     (window.canvasOptions.desynchronized ??
       defaultCanvasOptions.desynchronized),
 });
+
+// define initialCtx for later reference
 const initialCtx = ctx;
+
+// global runtime variables
 let animation, previousTimestamp, frameRate, frameCount, width, height;
 let canvasCurrentlyCentered = false;
+
+// when the window gets resized, call the resizeCanvas() function
 window.addEventListener(`resize`, resizeCanvas);
-window.addEventListener(`load`, () => {
-  Object.assign(
-    canvasOptions,
-    defaultCanvasOptions,
-    `canvasOptions` in window ? window.canvasOptions : {}
-  );
-  canvasOptions.canvas === false && document.body.removeChild(canvas);
-  resizeCanvas();
-  `setup` in window && window.setup();
-  frameCount = 0;
-  animation = requestAnimationFrame(render);
-});
+
+// when the window loads...
+window.addEventListener(`load`, onLoad);
 /**
  * It renders the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -120,6 +117,19 @@ const render = (timestamp) => {
   // Otherwise, start animation with requestAnimationFrame
   animation = requestAnimationFrame(render);
 };
+
+function onLoad() {
+  Object.assign(
+    canvasOptions,
+    defaultCanvasOptions,
+    `canvasOptions` in window ? window.canvasOptions : {}
+  );
+  canvasOptions.canvas === false && document.body.removeChild(canvas);
+  resizeCanvas();
+  `setup` in window && window.setup();
+  frameCount = 0;
+  animation = requestAnimationFrame(render);
+}
 
 function centerCanvas() {
   ctx.translate(width / 2, height / 2);
