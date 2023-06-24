@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "simplex-noise": "^4.0.1"
-  }
+  },
+  "name": "cascading-waves",
+  "description": "Click [here](https://phobiacide.github.io/cascading-waves/) to run the code in browser. \r Hosted by Github Pages.",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhobiaCide/cascading-waves.git"
+  },
+  "author": "PhobiaCide",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PhobiaCide/cascading-waves/issues"
+  },
+  "homepage": "https://github.com/PhobiaCide/cascading-waves#readme"
 }
