@@ -381,7 +381,7 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.destinationOver;
+  ctx.globalCompositeOperation = compOpts.colorDodge;
 
   // blur the canvas
   ctx.filter = `blur(4px)`;
@@ -393,7 +393,10 @@ function draw(e) {
   ctx.filter = `blur(2px)`;
 
   // stroke highlight
-  stroke(hsl(30, 99, 80, 0.5), 3);
+  stroke(hsl(30, 100, 80, 0.5), 3);
 
-  stroke(hsl(0, 0, 0, 0.5), 1);
+  // blur the canvas
+  ctx.filter = `blur(1px)`;
+
+  stroke(-gradient, 15);
 }
