@@ -381,9 +381,19 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.destinationAtop;
+  ctx.globalCompositeOperation = compOpts.destinationOver;
+
+  // blur the canvas
   ctx.filter = `blur(4px)`;
-  stroke(gradient, 3);
+
+  // stroke segment
+  stroke(gradient, 5);
+
+  // blur the canvas
   ctx.filter = `blur(2px)`;
-  stroke(hsl(30, 99, 80, 0.95), 1);
+
+  // stroke highlight
+  stroke(hsl(30, 99, 80, 0.5), 3);
+
+  stroke(hsl(0, 0, 0, 0.5), 1);
 }
