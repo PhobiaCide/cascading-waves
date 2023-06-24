@@ -4,7 +4,7 @@ const { log } = console;
  * @param timestamp - The timestamp of the current frame.
  * @returns The return value is the current fillStyle value.
  */
-const compositeOptions = {
+const compOpts = {
   xor: `xor`,
   hue: `hue`,
   copy: `copy`,
@@ -307,35 +307,41 @@ function draw(e) {
   const strokeSegments = 64;
   const strokeCount = 64;
 
-  // incremental amount for cell coordinates
+  // incremental amounts for cell coordinates
   const incrementX = strokeSegments == 1 ? 1 : 1 / (strokeSegments - 1);
-
   const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
 
   // time step - used as frequency multiplier for noise
   let time = e * 0.00045;
   const timeStep = 0.0045;
+
   // create linear gradient
   const gradient = ctx.createLinearGradient(-width, 0, width, height);
+
   // set left and right colors from hsl
   const colorA = hsl(40, 100, 40);
   const colorB = hsl(330, 100, 40);
+
   // take the modulo 1 of the time and treated as a boolean
   const t = time % 1;
+
   // assign colors to the gradient using t
   gradient.addColorStop(-(t / 3) + 1, colorB);
   gradient.addColorStop(-(t / 3) + 2 / 3, colorA);
   gradient.addColorStop(-(t / 3) + 1 / 3, colorB);
+
   // reduce alpha value
   ctx.globalAlpha = (cosine(time) + 1) * 0.1 + 0.15;
   ctx.save();
   typeof gradient !== `number` && fillStyle(gradient);
+
   // fill with rect
   canvasOptions.centered && canvasCurrentlyCentered
     ? ctx.fillRect(-(width / 2), -(height / 2), width, height)
     : ctx.fillRect(0, 0, width, height);
   ctx.restore();
   ctx.globalAlpha = 1;
+
   // new path and loop through y-count and x-count
   ctx.beginPath();
   for (let rowIndex = 0; rowIndex < strokeCount; rowIndex++) {
@@ -343,19 +349,24 @@ function draw(e) {
     const c = cosine(PI * 2) * 0.1;
     for (let colIndex = 0; colIndex < strokeSegments; colIndex++) {
       const t = colIndex * incrementX;
+
       // generate noise using 3d noise
       const n = noise.noise3D(t, time, c);
+
       // scale the noise
       const y = n * (height / 2);
       const x = t * (width + 20) - width / 2 - 10;
+
       // either moveTo or lineTo to draw the shape
       (colIndex ? lineTo : moveTo)(x, y);
     }
+
     // increase time after every iteration
     time += timeStep;
   }
+
   // drawing styles
-  ctx.globalCompositeOperation = compositeOptions.multiply;
+  ctx.globalCompositeOperation = compOpts.multiply;
   ctx.filter = `blur(6px)`;
   stroke(gradient, 1);
   ctx.filter = `blur(12px)`;
