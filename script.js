@@ -1,4 +1,6 @@
 const { log } = console;
+const { PI, floor, cos } = Math;
+const noise = new SimplexNoise();
 /**
  * Draws a given number of lines on the canvas.
  * @param timestamp - The timestamp of the current frame.
@@ -33,8 +35,6 @@ const compOpts = {
   destinationOver: `destination-over`,
   destinationAtop: `destination-atop`,
 };
-const { PI, floor, cos } = Math;
-const noise = new SimplexNoise();
 const defaultCanvasOptions = {
   width: null,
   canvas: true,
