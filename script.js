@@ -223,11 +223,7 @@ const lineWidth = (widthValue) => {
 const strokeStyle = (...args) => {
   // Check if there is only 1 element in the array
   if (args.length === 1) {
-    const [arg] = args;
-
-    // If the type of the argument is a string or an instance of CanvasGradient, set the ctx.strokeStyle to it
-    ctx.strokeStyle =
-      (typeof arg === `string` || arg instanceof CanvasGradient) && arg;
+    setStrokeStyle(args);
 
     // If there are 2 elements in the array, call strokeStyle with the first argument and lineWidth with the second one
   } else if (args.length === 2) {
@@ -241,6 +237,14 @@ const strokeStyle = (...args) => {
 
   // end of strokeStyle()
 };
+
+function setStrokeStyle(args) {
+  const [arg] = args;
+
+  // If the type of the argument is a string or an instance of CanvasGradient, set the ctx.strokeStyle to it
+  ctx.strokeStyle =
+    (typeof arg === `string` || arg instanceof CanvasGradient) && arg;
+}
 
 /**
  * The hsl() function takes the hue, saturation, lightness and an optional alpha channel as inputs
