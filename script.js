@@ -382,9 +382,9 @@ function draw(e) {
   }
 
   // drawing styles
-  ctx.globalCompositeOperation = compOpts.xor;
-  ctx.filter = `blur(6px)`;
+  ctx.globalCompositeOperation = compOpts.sourceOver;
+  ctx.filter = `blur(76px)`;
   stroke(gradient, 1);
-  ctx.filter = `blur(12px)`;
+  ctx.filter = `blur(0px)`;
   stroke(hsl(0, 0, 100, 0.8), 1);
 }
