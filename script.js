@@ -310,7 +310,8 @@ function draw(e) {
   // incremental amount for cell coordinates
   const incrementX = strokeSegments == 1 ? 1 : 1 / (strokeSegments - 1);
 
-  const incrementY = strokeCount == 1 ? 1 : 1 / (strokeCount - 1);
+  const incrementY =
+    strokeCount == 1 ? 1 : (strokeCount - 1) * (1 / strokeCount) * strokeCount;
 
   // time step - used as frequency multiplier for noise
   let time = e * 0.00045;
